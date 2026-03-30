@@ -1,0 +1,14 @@
+.footer-link:hover {
+    color: #adb5bd !important;
+    transition: color 0.2s ease;
+}
+
+
+
+.play-button, .contact-submit-button{
+    background-color: #c1121f;
+}
+
+.play-button:hover, .contact-submit-button:hover {
+    background-color: #780000;
+}
