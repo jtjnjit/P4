@@ -6,9 +6,9 @@
 
 
 .play-button, .contact-submit-button{
-    background-color: #c1121f;
+    background-color: #d61c29;
 }
 
 .play-button:hover, .contact-submit-button:hover {
-    background-color: #780000;
+    background-color: #890707;
 }
