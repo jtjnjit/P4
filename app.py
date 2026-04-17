@@ -17,14 +17,27 @@ def index():
     return render_template('index.html')
 
 
-
-
+# check should be good
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
+    if request.method == 'POST':
+        name = request.form['name']
+        username = request.form['username']
+        email = request.form['email']
+        message = request.form['message']
+
+        conn = get_db()
+        cursor = conn.cursor()
+
+        cursor.execute("SELECT * FROM Users WHERE userName = ?", username)
+        existing_user = cursor.fetchone()
+
+        if existing_user:
+            cursor.execute("INSERT INTO contactForm (userName, email, name, message) VALUES (?, ?, ?, ?)", username, email, name, message)
+        else:
+            cursor.execute("INSERT INTO contactForm (email, name, message) VALUES (?, ?, ?)", email, name, message)
+
     return render_template('contact.html')
-
-
-
 
 
 
@@ -39,6 +52,7 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
+        name = request.form['name']
 
         conn = get_db()
         cursor = conn.cursor()
@@ -62,7 +76,7 @@ def login():
 
 
 
-
+# should be good check
 @app.route('/info-removal', methods=['GET', 'POST'])
 def info_removal():
     success = None
@@ -83,10 +97,14 @@ def info_removal():
             conn.close()
             success = "Information successfully removed."
             return render_template('info-removal.html', success=True)
-        
-    failed = "No username or password incorrect, or user does not exist."
-    return render_template('info-removal.html', failed=True)
+        else:
+            failed = "No username or password incorrect, or user does not exist."
+            return render_template('info-removal.html', failed=True)
+    return render_template('info-removal.html')
 
+
+        
+    
             
 
 # done

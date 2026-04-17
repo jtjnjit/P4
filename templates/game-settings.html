@@ -46,38 +46,43 @@
                         <h3 class="card-header text-center">Game Settings</h2>
                         <div class="card-body">
                             <form>
-                               <select class="form-select form-select-sg mb-4 mt-3" aria-label=".form-select-sg">
+                               <select class="form-select form-select-sg mb-4 mt-3" aria-label=".form-select-sg" required>
                                     <option selected>Number of Questions</option>
                                     <option value="5">5</option>
                                     <option value="10">10</option>
                                     <option value="15">15</option>
                                 </select> 
 
-                                <select class="form-select form-select-sg mb-4" aria-label=".form-select-sg">
-                                    <option selected>Setting 1</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
+                                <select class="form-select form-select-sg mb-4" aria-label=".form-select-sg" required>
+                                    <option selected>Category</option>
+                                    <option value="generalKnowledge">General Knowledge</option>
+                                    <option value="vehicle">Cars</option>
+                                    <option value="music">Music</option>
+                                    <option value="sports">Sports</option>
+                                    <option value="history">History</option>
+                                    <option value="all">Animals</option>
+                                    <option value="all">Animals</option>
+
+                                    <option value="all">All</option>
                                 </select>
 
-                                <select class="form-select form-select-sg mb-4" aria-label=".form-select-sg">
-                                    <option selected>Setting 1</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
+                                <select class="form-select form-select-sg mb-4" aria-label=".form-select-sg" required>
+                                    <option selected>Difficulty</option>
+                                    <option value="easy">Easy</option>
+                                    <option value="medium">Medium</option>
+                                    <option value="hard">Hard</option>
                                 </select>   
                                 
-                                
-                                <div style="display: inline;">
-                                    <div class="form-check">
+                                <div class="justify-content-center">
+                                    <div class="form-check justify-content-center">
                                         <input class="form-check-input" type="radio" name="questionType" id="multipleChoice">
                                         <label class="form-check-label" for="multipleChoice">Multiple Choice Questions</label>
                                     </div>
-                                    <div class="form-check">
+                                    <div class="form-check justify-content-center">
                                         <input class="form-check-input" type="radio" name="questionType" id="trueFlase">
                                         <label class="form-check-label" for="trueFlase">True/False Questions</label>
                                     </div> 
-                                    <div class="form-check">
+                                    <div class="form-check justify-content-center">
                                         <input class="form-check-input" type="radio" name="questionType" id="both">
                                         <label class="form-check-label" for="trueFlase">Both</label>
                                     </div> 
