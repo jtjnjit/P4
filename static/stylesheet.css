@@ -7,8 +7,10 @@
 
 .play-button, .contact-submit-button{
     background-color: #d61c29;
+    color: white;
 }
 
-.play-button:hover, .contact-submit-button:hover {
+.play-button:hover, .contact-submit-button:hover, .play-button:active {
     background-color: #890707;
+    color: white;
 }

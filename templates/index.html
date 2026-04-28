@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>TITLE HEREXXXXXXXXXXXXX</title>
+        <title>Triv.io</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
@@ -11,7 +11,7 @@
         <header>
             <nav class="navbar navbar-expand-lg text-black shadow-sm border-bottom bg-white">
                 <div class="container-fluid px-5">
-                    <a class="navbar-brand fs-3" href="{{ url_for('index') }}">GAME NAME HERE</a>
+                    <a class="navbar-brand fs-3" href="{{ url_for('index') }}">Triv.io</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -43,9 +43,9 @@
             <div class="row justify-content-center">
                 <div class="col-10 col-lg-9">
                     <div class="card rounded-0 shadow-sm">
-                        <h3 class="card-header text-center">Welcome To XXXXX</h2>
+                        <h3 class="card-header text-center">Welcome To Triv.io</h3>
                         <div class="card-body">
-                            <h5 class="card-title">How (game name) Works:</h5>
+                            <h5 class="card-title">How Triv.io Works:</h5>
                             <ol>
                                 <li>Click on the "Play" button in the top right of the screen, it should give you a dropdown list</li>
                                 <li>Choose the "Game Settings" text and click on it.</li>
@@ -54,9 +54,9 @@
                                 <li>You will then be able to start your game!</li>
                             </ol>
                             <p class="card-text mt-3">You may also login or create an account at any point in order to keep track of your personal high score and be put on the leaderboard.</p>
-                            <h4 class="card-text text-center text-decoration-underline">Have Fun & Enjoy Playing (game name)</h4>
+                            <h4 class="card-text text-center text-decoration-underline">Have Fun & Enjoy Playing Triv.io</h4>
                             <div class="text-center mt-5 mb-3">
-                                <a href="#" class=" play-button btn btn-primary border-dark">Play Now! XXXX</a>
+                                <a href="{{ url_for('play_game') }}" class=" play-button btn rounded-0 border-dark">Play Now!</a>
                             </div>
                         </div>
                     </div>
