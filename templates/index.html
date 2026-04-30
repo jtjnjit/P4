@@ -8,6 +8,13 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet.css') }}">
     </head>
     <body class="d-flex flex-column min-vh-100">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <script>
+                alert("Hello, {{ session['username'] }}!");
+            </script>
+            {% endif %}
+        {% endwith %}
         <header>
             <nav class="navbar navbar-expand-lg text-black shadow-sm border-bottom bg-white">
                 <div class="container-fluid px-5">
@@ -34,6 +41,18 @@
                                 <a class="nav-link text-dark fs-5" href="{{ url_for('info_removal') }}">Info Removal Form</a>
                             </li>
                         </ul>
+                        {% if session.get('username') %}
+                        <ul class="navbar-nav ms-3">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link text-dark fs-5 dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                                    {{ session['username'] }}
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><a class="dropdown-item text-dark" href="/logout">Logout</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        {% endif %}
                     </div>
                 </div>
             </nav>

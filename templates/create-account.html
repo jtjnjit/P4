@@ -63,7 +63,9 @@
                                     <input type="text" maxlength="30" class="form-control" name="email" id="email" placeholder="Your email">
                                 </div>
                                 {% if error %}
-                                    <div class="alert alert-danger">{{ error }}</div>
+                                <div class="d-flex justify-content-center">
+                                    <div class="alert alert-danger mb-0 mt-3 text-center py-2 px-3 d-inline-block">{{error}}</div>
+                                </div>
                                 {% endif %}      
                                 <div class="text-center mt-4">
                                     <button type="submit" class="contact-submit-button btn btn-primary border-dark">Create Account</button>

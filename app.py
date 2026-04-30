@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session, flash
 import pyodbc
 
 app = Flask(__name__)
@@ -45,14 +45,9 @@ def contact():
 # working on
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    # return render_template('login.html')
-    success = None
-    failed = None
-    login = None
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        name = request.form['name']
 
         conn = get_db()
         cursor = conn.cursor()
@@ -60,20 +55,21 @@ def login():
         cursor.execute("SELECT * FROM Users WHERE userName = ? AND password = ?", username, password)
         existing_user = cursor.fetchone()
 
-
         if existing_user:
-            success = "Welcome, " + name + ", you're login in."
-            login = True
-            # other logic to show name on screen somewhere for the rest of session
+            session['username'] = username
             conn.close()
-            return render_template('/', success=True)
+            flash('welcomeMessage')
+            return redirect(url_for('index'))
         else:
-            failed = "Incorrect username or password, maybe create an account below."
             conn.close()
-            return render_template('login.html')
+            return render_template('login.html', failed=True)
     return render_template('login.html')
 
-
+# should be good
+@app.route('/logout')
+def logout():
+    session.pop('username', None)
+    return redirect(url_for('index'))
 
 
 # should be good check
@@ -103,9 +99,6 @@ def info_removal():
     return render_template('info-removal.html')
 
 
-        
-    
-            
 
 # done
 @app.route('/create-account', methods=['GET', 'POST'])
