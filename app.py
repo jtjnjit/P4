@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 import pyodbc
 
 app = Flask(__name__)
+app.secret_key = 'SecretKeyPassword'
 
 def get_db():
     conn = pyodbc.connect(
@@ -16,8 +17,7 @@ def get_db():
 def index():
     return render_template('index.html')
 
-
-# check should be good
+# DONE
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
     if request.method == 'POST':
@@ -34,15 +34,18 @@ def contact():
 
         if existing_user:
             cursor.execute("INSERT INTO contactForm (userName, email, name, message) VALUES (?, ?, ?, ?)", username, email, name, message)
+            conn.commit()
+            conn.close()
+            return render_template('contact.html', success="Message sent successfully!")
         else:
             cursor.execute("INSERT INTO contactForm (email, name, message) VALUES (?, ?, ?)", email, name, message)
+            conn.commit()
+            conn.close()
+            return render_template('contact.html', success="Message sent successfully!")
 
     return render_template('contact.html')
 
-
-
-
-# working on
+# DONE
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -58,25 +61,23 @@ def login():
         if existing_user:
             session['username'] = username
             conn.close()
-            flash('welcomeMessage')
+            flash('login')
             return redirect(url_for('index'))
         else:
             conn.close()
-            return render_template('login.html', failed=True)
+            return render_template('login.html', error="Incorrect username or password")
     return render_template('login.html')
 
-# should be good
+# DONE
 @app.route('/logout')
 def logout():
     session.pop('username', None)
+    flash('logout')
     return redirect(url_for('index'))
 
-
-# should be good check
+# DONE
 @app.route('/info-removal', methods=['GET', 'POST'])
 def info_removal():
-    success = None
-    failed = None
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
@@ -92,18 +93,16 @@ def info_removal():
             conn.commit()
             conn.close()
             success = "Information successfully removed."
-            return render_template('info-removal.html', success=True)
+            return render_template('info-removal.html', success=success)
         else:
-            failed = "No username or password incorrect, or user does not exist."
-            return render_template('info-removal.html', failed=True)
+            conn.close()
+            error = "Username or password is incorrect, or the user does not exist."
+            return render_template('info-removal.html', error=error)
     return render_template('info-removal.html')
 
-
-
-# done
+# DONE
 @app.route('/create-account', methods=['GET', 'POST'])
 def create_account():
-    error = None
     if request.method == 'POST':
         username = request.form['username']
         email = request.form['email']
@@ -117,7 +116,9 @@ def create_account():
         existing_user = cursor.fetchone()
 
         if existing_user:
+            conn.close()
             error = "Username is already taken, please choose another."
+            return render_template('create-account.html', error=error)
         else:
             cursor.execute("""
                 INSERT INTO Users (userName, email, name, password, high_score)
@@ -125,47 +126,47 @@ def create_account():
             """, username, email, name, password)
             conn.commit()
             conn.close()
+            success = "Account created successfully!"
+            return render_template('create-account.html', success=success)
+    return render_template('create-account.html')
 
-            return render_template('create-account.html', success=True)
-        conn.close()
+# DONE
+@app.route('/game-settings', methods=['GET', 'POST'])
+def game_settings():
+    if request.method == 'POST':
+        session['amount'] = request.form['amount']
+        session['category'] = request.form['category']
+        session['difficulty'] = request.form['difficulty']
+        session['type'] = request.form['type']
+        return redirect(url_for('play_game'))
+    return render_template('game-settings.html')
 
-    return render_template('create-account.html', error=error)
+# DONE
+@app.route('/leaderboard')
+def leaderboard():
+    conn = get_db()
+    cursor = conn.cursor()
+    cursor.execute("SELECT TOP 50 userName, high_score FROM Users WHERE high_score > 0 ORDER BY high_score DESC")
+    players = cursor.fetchall()
+    conn.close()
+    return render_template('leaderboard.html', players=players)
 
 
+# NEED TO DO
 @app.route('/play-game', methods=['GET', 'POST'])
 def play_game():
     return render_template('play-game.html')
 
-@app.route('/game-settings', methods=['GET', 'POST'])
-def game_settings():
-    return render_template('game-settings.html')
 
-@app.route('/leaderboard', methods=['GET', 'POST'])
-def leaderboard():
-    return render_template('leaderboard.html')
-
+# DONE
 @app.route('/terms', methods=['GET', 'POST'])
 def terms():
     return render_template('terms.html')
 
+# DONE
 @app.route('/priv-statement', methods=['GET', 'POST'])
 def priv_statement():
     return render_template('priv-statement.html')
 
-
 if __name__ == '__main__':
     app.run(debug=True)
-
-
-# **3. Folder structure you should have:**
-# project/
-# │
-# ├── app.py
-# ├── stylesheet.css
-# ├── templates/
-# │   ├── index.html
-# │   ├── contact.html
-# │   ├── terms.html
-# │   └── create-account.html
-# └── static/
-#     └── stylesheet.css

@@ -11,7 +11,7 @@
         <header>
             <nav class="navbar navbar-expand-lg text-black shadow-sm border-bottom bg-white">
                 <div class="container-fluid px-5">
-                    <a class="navbar-brand fs-3" href="{{ url_for('index') }}">Triv.io</a>
+                    <a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='images/TrivioLogoWide.png') }}" alt="Triv.io logo" height="55" width="200"></a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -34,6 +34,16 @@
                                 <a class="nav-link text-dark fs-5" href="{{ url_for('info_removal') }}">Info Removal Form</a>
                             </li>
                         </ul>
+                        {% if session.get('username') %}
+                        <ul class="navbar-nav ms-2">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link text-dark fs-5 dropdown-toggle" href="#" data-bs-toggle="dropdown">{{ session['username'] }}</a>
+                                <ul class="dropdown-menu dropdown-menu-end" style="min-width: auto;">
+                                    <li><a class="dropdown-item text-dark" href="/logout">Logout</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        {% endif %}
                     </div>
                 </div>
             </nav>
@@ -45,50 +55,48 @@
                     <div class="card rounded-0">
                         <h3 class="card-header text-center">Game Settings</h2>
                         <div class="card-body">
-                            <form>
-                               <select class="form-select form-select-sg mb-4 mt-3" aria-label=".form-select-sg" required>
-                                    <option selected>Number of Questions</option>
-                                    <option value="5">5</option>
-                                    <option value="10">10</option>
-                                    <option value="15">15</option>
-                                </select> 
-
-                                <select class="form-select form-select-sg mb-4" aria-label=".form-select-sg" required>
-                                    <option selected>Category</option>
-                                    <option value="generalKnowledge">General Knowledge</option>
-                                    <option value="vehicle">Cars</option>
-                                    <option value="music">Music</option>
-                                    <option value="sports">Sports</option>
-                                    <option value="history">History</option>
-                                    <option value="all">Animals</option>
-                                    <option value="all">Animals</option>
-
-                                    <option value="all">All</option>
+                            <form action="/game-settings" method="POST">
+                                <select name="amount" class="form-select form-select-lg mb-4 mt-3" required>
+                                    <option class="fs-5" style="color: black;" value="" disabled selected>Number of Questions</option>
+                                    <option class="fs-6" value="5">5</option>
+                                    <option class="fs-6" value="10">10</option>
+                                    <option class="fs-6" value="15">15</option>
                                 </select>
 
-                                <select class="form-select form-select-sg mb-4" aria-label=".form-select-sg" required>
-                                    <option selected>Difficulty</option>
-                                    <option value="easy">Easy</option>
-                                    <option value="medium">Medium</option>
-                                    <option value="hard">Hard</option>
-                                </select>   
+                                <select name="category" class="form-select form-select-lg mb-4" required>
+                                    <option class="fs-5" style="color: black;" value="" disabled selected>Category</option>
+                                    <option class="fs-6" value="9">General Knowledge</option>
+                                    <option class="fs-6" value="28">Cars</option>
+                                    <option class="fs-6" value="12">Music</option>
+                                    <option class="fs-6" value="21">Sports</option>
+                                    <option class="fs-6" value="23">History</option>
+                                    <option class="fs-6" value="27">Animals</option>
+                                    <option class="fs-6" value="">All</option>
+                                </select>
+
+                                <select name="difficulty" class="form-select form-select-lg mb-4" required>
+                                    <option class="fs-5" style="color: black;" value="" disabled selected>Difficulty</option>
+                                    <option class="fs-6" value="easy">Easy</option>
+                                    <option class="fs-6" value="medium">Medium</option>
+                                    <option class="fs-6" value="hard">Hard</option>
+                                </select>
                                 
-                                <div class="justify-content-center">
-                                    <div class="form-check justify-content-center">
-                                        <input class="form-check-input" type="radio" name="questionType" id="multipleChoice">
+                                <div class="d-flex flex-column align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="type" value="multiple" id="multipleChoice">
                                         <label class="form-check-label" for="multipleChoice">Multiple Choice Questions</label>
                                     </div>
-                                    <div class="form-check justify-content-center">
-                                        <input class="form-check-input" type="radio" name="questionType" id="trueFlase">
-                                        <label class="form-check-label" for="trueFlase">True/False Questions</label>
-                                    </div> 
-                                    <div class="form-check justify-content-center">
-                                        <input class="form-check-input" type="radio" name="questionType" id="both">
-                                        <label class="form-check-label" for="trueFlase">Both</label>
-                                    </div> 
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="type" value="boolean" id="trueFalse">
+                                        <label class="form-check-label" for="trueFalse">True/False Questions</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="type" value="" id="both">
+                                        <label class="form-check-label" for="both">Both</label>
+                                    </div>
                                 </div>
                                 <div class="text-center mt-4">
-                                    <button type="submit" class=" contact-submit-button btn btn-primary border-dark">Submit</button>
+                                    <button type="submit" class="contact-submit-button btn btn-primary border-dark">Submit</button>
                                 </div>
                             </form>
                         </div>

@@ -8,10 +8,10 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet.css') }}">
     </head>
     <body class="d-flex flex-column min-vh-100">
-                <header>
+        <header>
             <nav class="navbar navbar-expand-lg text-black shadow-sm border-bottom bg-white">
                 <div class="container-fluid px-5">
-                    <a class="navbar-brand fs-3" href="{{ url_for('index') }}">Triv.io</a>
+                    <a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='images/TrivioLogoWide.png') }}" alt="Triv.io logo" height="55" width="200"></a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -34,6 +34,16 @@
                                 <a class="nav-link text-dark fs-5" href="{{ url_for('info_removal') }}">Info Removal Form</a>
                             </li>
                         </ul>
+                        {% if session.get('username') %}
+                        <ul class="navbar-nav ms-2">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link text-dark fs-5 dropdown-toggle" href="#" data-bs-toggle="dropdown">{{ session['username'] }}</a>
+                                <ul class="dropdown-menu dropdown-menu-end" style="min-width: auto;">
+                                    <li><a class="dropdown-item text-dark" href="/logout">Logout</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        {% endif %}
                     </div>
                 </div>
             </nav>
@@ -45,21 +55,31 @@
                     <div class="card rounded-0">
                         <h3 class="card-header text-center">Info Removal Form</h2>
                         <div class="card-body">
-                            <form>
+                            <form action="/info-removal" method="POST">
                                 <div class="mb-3">
                                     <label for="username" class="form-label">Username</label>
-                                    <input type="text" class="form-control" id="username" placeholder="Your username" required>
+                                    <input type="text" class="form-control" name="username" id="username" placeholder="Your username" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="password" class="form-label">Password</label>
-                                    <input type="text" class="form-control" id="password" placeholder="Your password" required>
+                                    <input type="text" class="form-control" name="password" id="password" placeholder="Your password" required>
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
                                     <label class="form-check-label" for="flexCheckDefault">
                                         By submitting this form you agree to the removal of your score from the leaderboard.
                                     </label>
-                                </div>      
+                                </div> 
+                                {% if error %}
+                                <div class="d-flex justify-content-center">
+                                    <div class="alert alert-danger mb-0 mt-3 text-center py-2 px-3 d-inline-block">{{error}}</div>
+                                </div>
+                                {% endif %}      
+                                {% if success %}
+                                <div class="d-flex justify-content-center">
+                                    <div class="alert alert-success mb-0 mt-3 text-center py-2 px-3 d-inline-block">{{success}}</div>
+                                </div>
+                                {% endif %}     
                                 <div class="text-center mt-4">
                                     <button type="submit" class=" contact-submit-button btn btn-primary border-dark">Submit</button>
                                 </div>

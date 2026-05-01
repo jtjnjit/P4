@@ -1,23 +1,42 @@
+/* prevents horizontal scrolling issue with logout button */
+body {
+    overflow-x: hidden;
+}
+
+/* make footer links darken when hovered */
 .footer-link:hover {
     color: #adb5bd !important;
     transition: color 0.2s ease;
 }
 
-
-
+/* make submit button red */
 .play-button, .contact-submit-button{
     background-color: #d61c29;
     color: white;
 }
 
+/* make submit button red */
 .play-button:hover, .contact-submit-button:hover, .play-button:active {
     background-color: #890707;
     color: white;
 }
-
+/* hides long usernames in navbar */
+.navbar .dropdown-toggle {
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+    vertical-align: middle;
+}
 
 @media (min-width: 992px) {
+    /* allows for navbar hover */
     .navbar .dropdown:hover .dropdown-menu {
         display: block;
+    }
+    /* prevents hover bouncing */
+    .navbar .dropdown-menu {
+        margin-top: 0;
     }
 }

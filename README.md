@@ -1,12 +1,12 @@
 # P4
 
-contact = html done; flask need checked
-create acc = html done; flask need checked
-game settings = needs html form required and spacing; needs flask logic too
-index = html need correct play link; flask done
-info-removal = html done; flask need checked
-leaderboard = NONE; NONE
-login = html done; flask need check
-play-game = NONE; NONE
+contact = HTML DONE; Flask DONE
+info-removal = HTML DONE; Flask DONE
+create-acc = HTML DONE; Flask DONE
+leaderboard = HTML DONE; Flask DONE (NEEDS CHECKED FOR OVERFLOW) (styling better) (top 3 colored) (make sure hover over row highlight works)
+terms/priv statement = DONE
+login = HTML Done; Flask DONE 
+index = HTML toast style; Flask DONE
 
-terms/priv statement = GOOD
+game settings = HTML DONE; Flask check over once done play-game
+play-game = NONE; NONE

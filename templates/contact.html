@@ -11,7 +11,7 @@
         <header>
             <nav class="navbar navbar-expand-lg text-black shadow-sm border-bottom bg-white">
                 <div class="container-fluid px-5">
-                    <a class="navbar-brand fs-3" href="{{ url_for('index') }}">Triv.io</a>
+                    <a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='images/TrivioLogoWide.png') }}" alt="Triv.io logo" height="55" width="200"></a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -34,6 +34,16 @@
                                 <a class="nav-link text-dark fs-5" href="{{ url_for('info_removal') }}">Info Removal Form</a>
                             </li>
                         </ul>
+                        {% if session.get('username') %}
+                        <ul class="navbar-nav ms-2">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link text-dark fs-5 dropdown-toggle" href="#" data-bs-toggle="dropdown">{{ session['username'] }}</a>
+                                <ul class="dropdown-menu dropdown-menu-end" style="min-width: auto;">
+                                    <li><a class="dropdown-item text-dark" href="/logout">Logout</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        {% endif %}
                     </div>
                 </div>
             </nav>
@@ -45,31 +55,35 @@
                     <div class="card rounded-0">
                         <h3 class="card-header text-center">Contact Form</h2>
                         <div class="card-body">
-                            <form  method="POST">
+                            <form action="/contact" method="POST">
                                 <div class="mb-3">
                                     <label for="name" class="form-label">Name</label>
                                     <input type="text" maxlength="20" class="form-control" id="name" name="name" placeholder="Your name" required>
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="username" class="form-label">Username</label>
+                                    <label for="username" class="form-label">Username (optional)</label>
                                     <input type="text" maxlength="30" class="form-control" id="username" name="username" placeholder="Your username">
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="email" class="form-label">Email</label>
-                                    <input type="text" maxlength="20" class="form-control" id="email" name="email" placeholder="Your email" required>
+                                    <input type="text" maxlength="30" class="form-control" id="email" name="email" placeholder="Your email" required>
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="message" class="form-label">Message</label>
-                                    <textarea maxlength="400" class="form-control" id="message" rows="4" placeholder="Enter your message here" required></textarea>
+                                    <textarea maxlength="400" name="message" class="form-control" id="message" rows="4" placeholder="Enter your message here" required></textarea>
                                 </div>
+                                {% if success %}
+                                <div class="d-flex justify-content-center">
+                                    <div class="alert alert-success mb-0 mt-3 text-center py-2 px-3 d-inline-block">{{success}}</div>
+                                </div>
+                                {% endif %}
                                 <div class="text-center mt-4">
                                     <button type="submit" class=" contact-submit-button btn btn-primary border-dark">Submit</button>
                                 </div>
                             </form>
-
                         </div>
                     </div>
                 </div>

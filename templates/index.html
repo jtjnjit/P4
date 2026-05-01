@@ -8,17 +8,10 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet.css') }}">
     </head>
     <body class="d-flex flex-column min-vh-100">
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-            <script>
-                alert("Hello, {{ session['username'] }}!");
-            </script>
-            {% endif %}
-        {% endwith %}
         <header>
             <nav class="navbar navbar-expand-lg text-black shadow-sm border-bottom bg-white">
                 <div class="container-fluid px-5">
-                    <a class="navbar-brand fs-3" href="{{ url_for('index') }}">Triv.io</a>
+                    <a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='images/TrivioLogoWide.png') }}" alt="Triv.io logo" height="55" width="200"></a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -42,12 +35,10 @@
                             </li>
                         </ul>
                         {% if session.get('username') %}
-                        <ul class="navbar-nav ms-3">
+                        <ul class="navbar-nav ms-2">
                             <li class="nav-item dropdown">
-                                <a class="nav-link text-dark fs-5 dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                                    {{ session['username'] }}
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-end">
+                                <a class="nav-link text-dark fs-5 dropdown-toggle" href="#" data-bs-toggle="dropdown">{{ session['username'] }}</a>
+                                <ul class="dropdown-menu dropdown-menu-end" style="min-width: auto;">
                                     <li><a class="dropdown-item text-dark" href="/logout">Logout</a></li>
                                 </ul>
                             </li>
@@ -66,16 +57,16 @@
                         <div class="card-body">
                             <h5 class="card-title">How Triv.io Works:</h5>
                             <ol>
-                                <li>Click on the "Play" button in the top right of the screen, it should give you a dropdown list</li>
+                                <li>Click on the "Play" button at the top right of the screen, it should give you a dropdown list</li>
                                 <li>Choose the "Game Settings" text and click on it.</li>
                                 <li>You will then be prompted to choose the specific settings for your game. Choose carefully, but feel free to play around.</li>
-                                <li>After you have choose your settings, you can again click the "Play" button in the nav bar and click "Play" this time.</li>
+                                <li>After you have chosen your settings, you can click "Submit" and you will be redirected to the game screen.</li>
                                 <li>You will then be able to start your game!</li>
                             </ol>
                             <p class="card-text mt-3">You may also login or create an account at any point in order to keep track of your personal high score and be put on the leaderboard.</p>
                             <h4 class="card-text text-center text-decoration-underline">Have Fun & Enjoy Playing Triv.io</h4>
                             <div class="text-center mt-5 mb-3">
-                                <a href="{{ url_for('play_game') }}" class=" play-button btn rounded-0 border-dark">Play Now!</a>
+                                <a href="{{ url_for('game_settings') }}" class=" play-button btn rounded-0 border-dark">Play Now!</a>
                             </div>
                         </div>
                     </div>
@@ -92,5 +83,22 @@
         </footer>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="position-fixed top-50 start-50 translate-middle" style="z-index: 9999; width: 350px;">
+            {% if 'logout' in messages %}
+            <div class="toast show text-white bg-secondary border-0 p-3 position-relative">
+                <button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-2" data-bs-dismiss="toast"></button>
+                <div class="toast-body fs-4 text-center pt-3">Successfully logged out.</div>
+            </div>
+            {% elif 'login' in messages %}
+            <div class="toast show text-white bg-success border-0 p-3 position-relative">
+                <button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-2" data-bs-dismiss="toast"></button>
+                <div class="toast-body fs-4 text-center pt-3">Welcome back, {{ session['username'] }}!</div>
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
+        {% endwith %}
     </body>
 </html>
