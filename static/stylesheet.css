@@ -1,3 +1,5 @@
+/* DEVELOPER: Jake Jarecki, IS117-002, Spring 2026 */
+
 /* prevents horizontal scrolling issue with logout button */
 body {
     overflow-x: hidden;

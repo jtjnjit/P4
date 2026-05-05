@@ -1,3 +1,4 @@
+# DEVELOPER: Jake Jarecki, IS117-002, Spring 2026
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 import pyodbc
 
