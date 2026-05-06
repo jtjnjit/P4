@@ -1,5 +1,14 @@
-# P4
+# Triv.io Game
 
+
+## How To Run Locally
+- Download zip file of all code
+- Open in editor, such as VS Code
+- Run the app using the command (py app.py)
+- Then go to the localhost ip address given by Flask (shown in terminal)
+
+
+## In Progress
 contact = HTML DONE; Flask DONE
 info-removal = HTML DONE; Flask DONE
 create-acc = HTML DONE; Flask DONE

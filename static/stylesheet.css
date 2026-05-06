@@ -3,6 +3,7 @@
 /* prevents horizontal scrolling issue with logout button */
 body {
     overflow-x: hidden;
+    min-width: 320px;
 }
 
 /* make footer links darken when hovered */
@@ -32,7 +33,12 @@ body {
     vertical-align: middle;
 }
 
-@media (min-width: 992px) {
+/* sets logo size */
+.logo {
+    height: 55px;
+}
+
+@media (min-width: 768px) {
     /* allows for navbar hover */
     .navbar .dropdown:hover .dropdown-menu {
         display: block;
