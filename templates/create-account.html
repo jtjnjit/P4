@@ -9,7 +9,7 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet.css') }}">
     </head>
     <body class="d-flex flex-column min-vh-100">
-                <header>
+        <header>
             <nav class="navbar navbar-expand-md text-black shadow-sm border-bottom bg-white">
                 <div class="container-fluid px-5">
                     <a class="navbar-brand" href="{{ url_for('index') }}">
@@ -25,15 +25,13 @@
                             </li>
                             <li class="navbar-item dropdown">
                                 <a class="nav-link dropdown-toggle text-dark fs-5" href="#" data-bs-toggle="dropdown">Play</a>
-                                <div class="d-flex justify-content-center">
-                                    <ul class="dropdown-menu play-dropdown">
-                                        <li><a class="dropdown-item text-dark" href="{{ url_for('play_game') }}">Play Game</a></li>
-                                        <li><hr class="dropdown-divider text-dark"></li>
-                                        <li><a class="dropdown-item text-dark small" href="{{ url_for('game_settings') }}">Game Settings</a></li>
-                                        <li><a class="dropdown-item text-dark small" href="{{ url_for('login') }}">Login</a></li>
-                                        <li><a class="dropdown-item text-dark small" href="{{ url_for('leaderboard') }}">Leaderboard</a></li>
-                                    </ul>
-                                </div>
+                                <ul class="dropdown-menu play-dropdown text-center">
+                                    <li><a class="dropdown-item text-dark" href="{{ url_for('play_game') }}">Play Game</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item text-dark small" href="{{ url_for('game_settings') }}">Game Settings</a></li>
+                                    <li><a class="dropdown-item text-dark small" href="{{ url_for('login') }}">Login</a></li>
+                                    <li><a class="dropdown-item text-dark small" href="{{ url_for('leaderboard') }}">Leaderboard</a></li>
+                                </ul>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark fs-5" href="{{ url_for('contact') }}">Contact</a>
@@ -42,14 +40,12 @@
                                 <a class="nav-link text-dark fs-5" href="{{ url_for('info_removal') }}">Info Removal Form</a>
                             </li>
                             {% if session.get('username') %}
-                            <div class="d-flex justify-content-center">
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link text-dark fs-5 dropdown-toggle text-nowrap" href="#" data-bs-toggle="dropdown">{{ session['username'] }}</a>
-                                    <ul class="dropdown-menu dropdown-menu-end" style="min-width: auto;">
-                                        <li><a class="dropdown-item text-dark text-center" href="/logout">Logout</a></li>
-                                    </ul>
-                                </li>
-                            </div>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link text-dark fs-5 dropdown-toggle text-nowrap" href="#" data-bs-toggle="dropdown">{{ session['username'] }}</a>
+                                <ul class="dropdown-menu text-center w-auto">
+                                    <li><a class="dropdown-item text-dark" href="/logout">Logout</a></li>
+                                </ul>
+                            </li>
                             {% endif %}
                         </ul>
                     </div>

@@ -1,6 +1,6 @@
 /* DEVELOPER: Jake Jarecki, IS117-002, Spring 2026 */
 
-/* prevents horizontal scrolling issue with logout button */
+/* prevents horizontal scrolling */
 body {
     overflow-x: hidden;
     min-width: 320px;
@@ -12,17 +12,17 @@ body {
     transition: color 0.2s ease;
 }
 
-/* make submit button red */
-.play-button, .contact-submit-button{
+/* make buttons red */
+.play-button, .contact-submit-button {
     background-color: #d61c29;
     color: white;
 }
 
-/* make submit button red */
 .play-button:hover, .contact-submit-button:hover, .play-button:active {
     background-color: #890707;
     color: white;
 }
+
 /* hides long usernames in navbar */
 .navbar .dropdown-toggle {
     max-width: 120px;
@@ -38,13 +38,49 @@ body {
     height: 55px;
 }
 
+/* shrink all dropdown menus to fit content */
+.navbar .dropdown-menu {
+    min-width: fit-content !important;
+    width: auto !important;
+}
+
+/* center play dropdown under Play button */
+.play-dropdown {
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+}
+
+/* wraps container width to content */
+.play-dropdown {
+    min-width: fit-content !important;
+}
+
+/* makes padding on submenu items smaller */
+.play-dropdown .dropdown-item {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+/* allows hover dropdowns and prevents bouncing on desktop */
 @media (min-width: 768px) {
-    /* allows for navbar hover */
     .navbar .dropdown:hover .dropdown-menu {
         display: block;
     }
-    /* prevents hover bouncing */
     .navbar .dropdown-menu {
-        margin-top: 0;
+        margin-top: 0 !important;
+    }
+    .play-dropdown {
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+    }
+}
+
+/* fixes mobile positioning */
+@media (max-width: 767.98px) {
+    .play-dropdown {
+        position: static !important;
+        transform: none !important;
+        left: auto !important;
+        margin: 0 auto !important;
     }
 }
